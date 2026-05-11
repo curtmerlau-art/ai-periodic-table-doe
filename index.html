@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400">
+<title>Periodic Table of Agents: State Departments of Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e17;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d45;
+    --text: #e8edf5;
+    --text-muted: #6b7fa3;
+    --text-dim: #3d5070;
+    --accent: #2d7fff;
+    --accent2: #00c2ff;
+    --gold: #f5a623;
+    --rose: #e05c8a;
+
+    /* Domain colors */
+    --d1: #3b6fd4;   /* Identity & Access */
+    --d2: #4d9e5f;   /* Student Data & Accountability */
+    --d3: #c8802a;   /* Funding & Grants */
+    --d4: #7c5cbf;   /* Curriculum & Standards */
+    --d5: #3d9eb5;   /* Educator Workforce */
+    --d6: #c05050;   /* Student Support & Equity */
+    --d7: #5a9e78;   /* School Improvement */
+    --d8: #a06040;   /* Special Education */
+    --d9: #6a6ab0;   /* Communications & Engagement */
+    --d10: #40808a;  /* Data & Research */
+    --d11: #b06090;  /* Federal Compliance */
+    --d12: #5090a0;  /* Finance & Audit */
+    --d13: #7080c0;  /* HR & Operations */
+    --d14: #a07030;  /* Procurement */
+    --d15: #50a080;  /* IT & Infrastructure */
+    --d16: #9060a0;  /* Policy & Legislation */
+    --d17: #c07050;  /* Early Childhood */
+    --d18: #4080b0;  /* Federal Reporting */
+
+    /* Maturity colors */
+    --p1: #1a2a3a;
+    --p2: #1a2a3a;
+    --p3: #1a2e2a;
+    --p4: #1e2a1a;
+    --p5: #2a2a1a;
+    --p6: #2a1a1a;
+    --p7: #261a2a;
+
+    --lant: #2a2510;
+    --acti: #2a1018;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: auto;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    padding: 40px 48px 24px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  .header-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 700px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .header-series {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .header-series strong { color: var(--text-muted); }
+
+  /* ── GOAL SELECTOR ── */
+  .goals-section {
+    padding: 32px 48px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .goals-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .goals-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .goal-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .goal-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all .15s;
+    line-height: 1.3;
+    text-align: left;
+  }
+  .goal-btn:hover { border-color: var(--accent); color: var(--text); }
+  .goal-btn.active { border-color: var(--accent2); background: #0d2240; color: var(--accent2); }
+  .goal-btn .goal-name { font-weight: 600; display: block; }
+  .goal-btn .goal-sub { font-size: 11px; color: var(--text-dim); display: block; margin-top: 2px; }
+  .goal-btn.active .goal-sub { color: #5eaacc; }
+
+  .goal-reset {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .goal-reset:hover { color: var(--text-muted); }
+
+  .goal-sequence {
+    display: none;
+    background: #0d1e30;
+    border: 1px solid var(--accent);
+    padding: 16px 20px;
+    margin-top: 16px;
+  }
+  .goal-sequence.visible { display: block; }
+  .goal-seq-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .goal-seq-agents {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .seq-agent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+  }
+  .seq-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .seq-sym {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .seq-name {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .seq-arrow {
+    color: var(--text-dim);
+    font-size: 18px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 32px 48px;
+  }
+
+  /* ── DOMAIN + PERIOD FILTERS ── */
+  .filter-row {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .filter-group { }
+  .filter-group .section-label { margin-bottom: 10px; }
+  .domain-chips, .maturity-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all .12s;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .chip:hover { opacity: .8; }
+  .chip.active { opacity: 1 !important; }
+  .chip.inactive { opacity: .3; }
+
+  /* ── TABLE ── */
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  .periodic-table {
+    display: grid;
+    grid-template-columns: 36px repeat(18, 1fr);
+    gap: 3px;
+    min-width: 1200px;
+  }
+
+  .col-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 6px 0 10px;
+    letter-spacing: .05em;
+  }
+  .row-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  /* ── CELL ── */
+  .cell {
+    position: relative;
+    aspect-ratio: 1;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all .15s;
+    overflow: hidden;
+    min-width: 0;
+  }
+  .cell:hover {
+    border-color: #ffffff55;
+    transform: translateY(-1px);
+    z-index: 2;
+  }
+  .cell.highlighted {
+    border-color: var(--accent2) !important;
+    box-shadow: 0 0 0 1px var(--accent2), inset 0 0 20px #00c2ff18;
+  }
+  .cell.dimmed { opacity: .18; }
+
+  .cell-inner {
+    width: 100%;
+    height: 100%;
+    padding: 5px 4px 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cell-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    color: rgba(255,255,255,.35);
+    line-height: 1;
+  }
+  .cell-sym {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(10px, 1.3vw, 18px);
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cell-name {
+    font-size: clamp(5.5px, 0.55vw, 8px);
+    color: rgba(255,255,255,.55);
+    line-height: 1.2;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* placeholder / empty */
+  .cell-empty {
+    background: transparent;
+    border: 1px solid transparent;
+    aspect-ratio: 1;
+  }
+
+  /* lanthanide / actinide spacer */
+  .cell-lant-ref, .cell-acti-ref {
+    grid-column: 3 / 4;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 2;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ── SPECIAL ROWS ── */
+  .lant-separator, .acti-separator {
+    grid-column: 1 / 20;
+    height: 14px;
+  }
+  .lant-row-label, .acti-row-label {
+    grid-column: 1 / 2;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── LEGEND SECTION ── */
+  .legend-section {
+    padding: 32px 48px;
+    border-top: 1px solid var(--border);
+    max-width: 1800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .legend-block { }
+  .legend-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .domain-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .domain-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px 6px;
+    transition: color .12s;
+  }
+  .domain-item:hover { color: var(--text); }
+  .domain-swatch {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+  .domain-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-right: 2px;
+  }
+
+  .maturity-legend { display: flex; flex-direction: column; gap: 8px; }
+  .maturity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .maturity-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .maturity-desc { line-height: 1.5; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+    animation: modalIn .15s ease-out;
+  }
+  @keyframes modalIn {
+    from { transform: translateY(12px); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  .modal-header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .modal-cell-preview {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    flex-shrink: 0;
+  }
+  .modal-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,.5);
+    align-self: flex-start;
+  }
+  .modal-sym {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 30px;
+    color: #fff;
+  }
+  .modal-title-block { flex: 1; }
+  .modal-agent-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .modal-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .modal-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border: 1px solid;
+    letter-spacing: .05em;
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-body {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .modal-section-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .modal-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .modal-footer {
+    padding: 16px 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .modal-footer span { display: flex; align-items: center; gap: 6px; }
+  .modal-nav {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .modal-nav-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 4px 12px;
+    cursor: pointer;
+  }
+  .modal-nav-btn:hover { border-color: var(--accent); color: var(--text); }
+
+  /* ── HOW TO READ ── */
+  .howto-section {
+    padding: 32px 48px 48px;
+    border-top: 1px solid var(--border);
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  .howto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .howto-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+  .howto-card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .howto-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .howto-card-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── MISC ── */
+  .lant-band, .acti-band {
+    grid-column: 1 / 20;
+    height: 2px;
+    margin: 4px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-eyebrow">Strategic Framework · AI Agents</div>
+  <h1 class="header-title">Periodic Table of Agents:<br>State Departments of Education</h1>
+  <p class="header-subtitle">A strategic map for building agentic AI across state education agencies. Pick a goal to see the top agents in build order, or explore all 118 by domain, maturity, core systems, and trust layer.</p>
+  <p class="header-series">Part of the <strong>Periodic Table of Agents</strong> series: Higher Ed · K-12 · State DOE · Academic Medical Centers · State & Local Government</p>
+</header>
+
+<!-- GOAL SELECTOR -->
+<section class="goals-section">
+  <div class="section-label">Start with Your Goal (Recommended)</div>
+  <div class="goals-title">What outcome does your agency need to move?</div>
+  <div class="goals-desc">Pick an outcome and see the 5 agents that drive impact, in recommended build order.</div>
+  <div class="goal-buttons">
+    <button class="goal-btn" data-goal="equity" onclick="selectGoal(this)">
+      <span class="goal-name">Close Equity Gaps</span>
+      <span class="goal-sub">Early warning, intervention routing, equity monitoring</span>
+    </button>
+    <button class="goal-btn" data-goal="accountability" onclick="selectGoal(this)">
+      <span class="goal-name">Strengthen Accountability</span>
+      <span class="goal-sub">Assessment integrity, school ratings, federal reporting velocity</span>
+    </button>
+    <button class="goal-btn" data-goal="workforce" onclick="selectGoal(this)">
+      <span class="goal-name">Grow the Educator Pipeline</span>
+      <span class="goal-sub">Licensure speed, placement matching, retention signals</span>
+    </button>
+    <button class="goal-btn" data-goal="grants" onclick="selectGoal(this)">
+      <span class="goal-name">Maximize Federal Funding</span>
+      <span class="goal-sub">Grant compliance, drawdown timing, subgrantee monitoring</span>
+    </button>
+    <button class="goal-btn" data-goal="experience" onclick="selectGoal(this)">
+      <span class="goal-name">Improve Family & Student Experience</span>
+      <span class="goal-sub">Self-service, multilingual access, life-event journeys</span>
+    </button>
+    <button class="goal-btn" data-goal="sped" onclick="selectGoal(this)">
+      <span class="goal-name">Accelerate Special Ed Compliance</span>
+      <span class="goal-sub">IEP tracking, due process, IDEA reporting integrity</span>
+    </button>
+  </div>
+  <button class="goal-reset" onclick="clearGoal()">Reset filters</button>
+
+  <div class="goal-sequence" id="goal-sequence">
+    <div class="goal-seq-label">Recommended Build Order</div>
+    <div class="goal-seq-agents" id="goal-seq-agents"></div>
+  </div>
+</section>
+
+<!-- MAIN TABLE -->
+<main class="main">
+
+  <!-- FILTER CHIPS -->
+  <div class="filter-row">
+    <div class="filter-group">
+      <div class="section-label">Domains (click to filter)</div>
+      <div class="domain-chips" id="domain-chips"></div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <div class="periodic-table" id="periodic-table"></div>
+  </div>
+</main>
+
+<!-- LEGEND -->
+<section class="legend-section">
+  <div class="legend-block">
+    <div class="legend-title">Domains</div>
+    <div class="domain-legend" id="domain-legend"></div>
+  </div>
+  <div class="legend-block">
+    <div class="legend-title">Maturity Levels (Periods)</div>
+    <div class="maturity-legend">
+      <div class="maturity-item">
+        <div class="maturity-badge">Periods 1–2</div>
+        <div class="maturity-desc"><strong>Informational</strong> — Answers questions, surfaces data, no system writes</div>
+      </div>
+      <div class="maturity-item">
+        <div class="maturity-badge">Period 3</div>
+        <div class="maturity-desc"><strong>Transactional</strong> — Completes simple end-to-end tasks with human approval</div>
+      </div>
+      <div class="maturity-item">
+        <div class="maturity-badge">Period 4</div>
+        <div class="maturity-desc"><strong>Workflow</strong> — Runs multi-step processes across agency systems</div>
+      </div>
+      <div class="maturity-item">
+        <div class="maturity-badge">Period 5</div>
+        <div class="maturity-desc"><strong>Decision Support</strong> — Recommends decisions with evidence and audit trail</div>
+      </div>
+      <div class="maturity-item">
+        <div class="maturity-badge">Period 6</div>
+        <div class="maturity-desc"><strong>Cross-Agency</strong> — Coordinates across districts, programs, and state systems</div>
+      </div>
+      <div class="maturity-item">
+        <div class="maturity-badge">Period 7</div>
+        <div class="maturity-desc"><strong>Autonomous</strong> — Self-directs with strong governance and legislative oversight</div>
+      </div>
+      <div class="maturity-item">
+        <div class="maturity-badge" style="border-color:#9a8020;color:#c8a020;">Lanthanides</div>
+        <div class="maturity-desc"><strong>Core Systems</strong> — Operational backbone: data pipelines, connectors, rules engines</div>
+      </div>
+      <div class="maturity-item">
+        <div class="maturity-badge" style="border-color:#a02040;color:#e05070;">Actinides</div>
+        <div class="maturity-desc"><strong>Trust Layer</strong> — FERPA, civil rights, equity audit, AI oversight, public trust</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO READ -->
+<section class="howto-section">
+  <div class="section-label">How to Start</div>
+  <div class="howto-grid">
+    <div class="howto-card">
+      <div class="howto-card-num">01</div>
+      <div class="howto-card-title">Pick a goal, not a technology</div>
+      <div class="howto-card-text">One outcome — equity gap reduction, educator pipeline, federal compliance velocity. Not three. The goal filter shows the agents that actually move that needle.</div>
+    </div>
+    <div class="howto-card">
+      <div class="howto-card-num">02</div>
+      <div class="howto-card-title">Build the floor before the ceiling</div>
+      <div class="howto-card-text">Period 6–7 agents only work when the Lanthanide backbone (data integration, rules engines, SIS/LMS connectors) is solid. Underfund that and everything above gets brittle fast.</div>
+    </div>
+    <div class="howto-card">
+      <div class="howto-card-num">03</div>
+      <div class="howto-card-title">Governance runs in parallel</div>
+      <div class="howto-card-text">The Actinide trust layer isn't a phase-3 deliverable. FERPA, Title VI civil rights compliance, and equity impact assessment must stand up alongside the first transactional agent that touches student data.</div>
+    </div>
+    <div class="howto-card">
+      <div class="howto-card-num">04</div>
+      <div class="howto-card-title">Pilot in 30–60 days</div>
+      <div class="howto-card-text">Real users, real data, narrow scope. A Period 2 informational agent (Policy Q&A, Licensure Status) carries low risk and ships fast — it builds organizational confidence for harder agents.</div>
+    </div>
+    <div class="howto-card">
+      <div class="howto-card-num">05</div>
+      <div class="howto-card-title">Measure one thing</div>
+      <div class="howto-card-text">Equity gap close rate, licensure cycle time, IDEA due-process resolution speed, federal drawdown accuracy. Pick one metric per agent. If it moves, scale. If not, understand why.</div>
+    </div>
+    <div class="howto-card">
+      <div class="howto-card-num">06</div>
+      <div class="howto-card-title">Talk in symbols, not slideware</div>
+      <div class="howto-card-text">The two-letter codes (Ew, Lc, Fg) become shared vocabulary across CIO, Chief Academic Officer, General Counsel, and legislature. "Fg needs to clear before Ia ships" beats a 40-page deck.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-header">
+      <div class="modal-cell-preview" id="modal-preview"></div>
+      <div class="modal-title-block">
+        <div class="modal-agent-name" id="modal-name"></div>
+        <div class="modal-tags" id="modal-tags"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="modal-section-title">What it does</div>
+        <div class="modal-text" id="modal-what"></div>
+      </div>
+      <div>
+        <div class="modal-section-title">Outcome</div>
+        <div class="modal-text" id="modal-outcome"></div>
+      </div>
+      <div>
+        <div class="modal-section-title">Why it matters for state education agencies</div>
+        <div class="modal-text" id="modal-why"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <span>Atomic #<strong id="mf-num"></strong></span>
+      <span>Symbol: <strong id="mf-sym"></strong></span>
+      <span>Domain <strong id="mf-domain"></strong></span>
+      <span>Period <strong id="mf-period"></strong></span>
+      <div class="modal-nav">
+        <button class="modal-nav-btn" onclick="navModal(-1)">← Prev</button>
+        <button class="modal-nav-btn" onclick="navModal(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════════════
+
+const DOMAINS = [
+  { id: 1,  name: "Identity & Access",           color: "#3b6fd4" },
+  { id: 2,  name: "Student Data & Accountability",color: "#4d9e5f" },
+  { id: 3,  name: "Funding & Grants",             color: "#c8802a" },
+  { id: 4,  name: "Curriculum & Standards",       color: "#7c5cbf" },
+  { id: 5,  name: "Educator Workforce",           color: "#3d9eb5" },
+  { id: 6,  name: "Student Support & Equity",     color: "#c05050" },
+  { id: 7,  name: "School Improvement",           color: "#5a9e78" },
+  { id: 8,  name: "Special Education",            color: "#a06040" },
+  { id: 9,  name: "Comms & Engagement",           color: "#6a6ab0" },
+  { id: 10, name: "Data & Research",              color: "#40808a" },
+  { id: 11, name: "Federal Compliance",           color: "#b06090" },
+  { id: 12, name: "Finance & Audit",              color: "#5090a0" },
+  { id: 13, name: "HR & Operations",              color: "#7080c0" },
+  { id: 14, name: "Procurement",                  color: "#a07030" },
+  { id: 15, name: "IT & Infrastructure",          color: "#50a080" },
+  { id: 16, name: "Policy & Legislation",         color: "#9060a0" },
+  { id: 17, name: "Early Childhood",              color: "#c07050" },
+  { id: 18, name: "Federal Reporting",            color: "#4080b0" },
+];
+
+const MATURITY = [
+  "Informational","Informational","Transactional","Workflow","Decision Support","Cross-Agency","Autonomous"
+];
+
+// Each agent: { num, sym, name, domain, period, group, what, outcome, why }
+const AGENTS = [
+  // PERIOD 1
+  {num:1,  sym:"Ia", name:"Identity Access Agent",        domain:1,  period:1, group:1,  what:"Handles basic SSO and role-based access requests for agency portals.",                                                         outcome:"Staff can access the right systems in minutes, not days.",                                                                   why:"Security bottlenecks slow every downstream workflow; a fast identity layer is the foundation."},
+  {num:2,  sym:"Pq", name:"Policy Q&A Agent",              domain:16, period:1, group:18, what:"Answers questions about state education statutes, regulations, and guidance documents.",                                         outcome:"Districts get policy answers in seconds instead of waiting for callbacks.",                                                   why:"SEAs field thousands of policy questions annually; automation reduces burden on legal and policy staff."},
+
+  // PERIOD 2
+  {num:3,  sym:"Ls", name:"Licensure Status Agent",        domain:5,  period:2, group:1,  what:"Lets educators query their certification status, expiration dates, and renewal requirements.",                                  outcome:"Educators self-serve status checks 24/7 without calling the licensure office.",                                              why:"Licensure offices are overwhelmed; self-service for simple status queries frees staff for complex cases."},
+  {num:4,  sym:"Ge", name:"Grant Eligibility Agent",       domain:3,  period:2, group:2,  what:"Helps districts determine eligibility for state and federal grant programs.",                                                    outcome:"More eligible districts apply; fewer ineligible applications waste review time.",                                            why:"Many districts miss funding they qualify for due to complexity of eligibility rules."},
+  {num:5,  sym:"Hp", name:"HR Policy Agent",               domain:13, period:2, group:5,  what:"Answers common HR policy questions — leave, benefits, classification — for agency staff.",                                      outcome:"HR tickets drop; staff get answers in seconds.",                                                                             why:"Repetitive HR queries consume staff time that could go to strategic workforce planning."},
+  {num:6,  sym:"Bg", name:"Budget Guidance Agent",         domain:12, period:2, group:6,  what:"Guides districts through allowable uses of state and federal funds by program.",                                                outcome:"Fewer audit findings from inadvertent misuse of restricted funds.",                                                          why:"Allowable-use questions are one of the top sources of compliance errors in local education agencies."},
+  {num:7,  sym:"Sc", name:"Standard Connect Agent",        domain:4,  period:2, group:7,  what:"Maps curriculum materials to state academic standards on request.",                                                              outcome:"Districts quickly validate instructional alignment without manual crosswalk.",                                               why:"Standards alignment is labor-intensive; automation accelerates curriculum review cycles."},
+  {num:8,  sym:"He", name:"IT Helpdesk Agent",             domain:15, period:2, group:8,  what:"Handles Tier-1 IT support tickets for agency staff and district technology coordinators.",                                      outcome:"Resolution time for common issues drops; IT staff focus on complex problems.",                                               why:"IT helpdesk volume spikes at school-year start; intelligent triage reduces queue backlog."},
+  {num:9,  sym:"Fc", name:"Family Connect Agent",          domain:9,  period:2, group:9,  what:"Answers common family questions about enrollment, calendars, and agency programs in multiple languages.",                       outcome:"Families get accurate answers without calling the district or SEA.",                                                         why:"Language barriers and access inequities make multilingual self-service a critical equity lever."},
+  {num:10, sym:"Fr", name:"Federal Aid Navigator",         domain:11, period:2, group:10, what:"Guides districts through federal program requirements — Title I, Title III, IDEA — in plain language.",                         outcome:"District coordinators understand requirements without wading through federal regulations.",                                  why:"Federal program requirements are dense; plain-language navigation reduces misapplication of funds."},
+
+  // PERIOD 3
+  {num:11, sym:"Iv", name:"Identity Verify Agent",         domain:1,  period:3, group:1,  what:"Automates identity proofing workflows for educator licensure and background check submissions.",                                outcome:"Credential verification cycle time drops from days to hours.",                                                               why:"Manual identity verification is a bottleneck in licensure and employment clearance pipelines."},
+  {num:12, sym:"Lc", name:"Licensure Checker Agent",       domain:5,  period:3, group:2,  what:"Validates educator license completeness and flags missing documents before submission.",                                         outcome:"Incomplete applications drop; processing time improves.",                                                                    why:"Incomplete submissions are the leading cause of licensure processing delays in state agencies."},
+  {num:13, sym:"Oa", name:"Onboarding Agent",              domain:13, period:3, group:3,  what:"Guides new agency hires through required forms, system provisioning, and compliance training.",                                 outcome:"Time-to-productivity for new staff drops; IT provisioning errors decrease.",                                                 why:"Manual onboarding across siloed systems creates friction and compliance gaps."},
+  {num:14, sym:"Ec", name:"Expense Coding Agent",          domain:12, period:3, group:6,  what:"Suggests correct program codes and account strings for expense submissions.",                                                    outcome:"Miscoding errors drop; budget reconciliation time decreases.",                                                               why:"Incorrect expense coding is a leading cause of audit findings in state and federal fund management."},
+  {num:15, sym:"Rd", name:"RFP Drafting Agent",            domain:14, period:3, group:7,  what:"Generates first-draft RFP language from program requirements and procurement templates.",                                       outcome:"Procurement cycle time shortens; specification quality improves.",                                                           why:"Drafting procurement documents is time-consuming for program staff without procurement expertise."},
+  {num:16, sym:"Dc", name:"Data Catalog Agent",            domain:10, period:3, group:10, what:"Inventories, tags, and documents agency data assets in a searchable catalog.",                                                  outcome:"Data stewards spend less time locating and explaining datasets.",                                                            why:"Data discoverability is foundational to evidence-based policy; without it, decisions rely on tribal knowledge."},
+  {num:17, sym:"Di", name:"District Intake Agent",         domain:9,  period:3, group:11, what:"Routes district requests and complaints to the correct agency division with triage context.",                                   outcome:"Routing errors drop; districts reach the right contact faster.",                                                             why:"Districts often submit requests to the wrong division, creating delays and frustration."},
+  {num:18, sym:"Cr", name:"Compliance Reporter Agent",     domain:11, period:3, group:18, what:"Generates draft federal compliance reports from agency data systems.",                                                           outcome:"Reporting cycle time drops; error rates decrease.",                                                                          why:"Federal reporting deadlines are fixed; manual report compilation creates last-minute errors and staff burnout."},
+
+  // PERIOD 4
+  {num:19, sym:"Ar", name:"Account Recovery Agent",        domain:1,  period:4, group:1,  what:"Automates credential reset and access recovery workflows with identity verification.",                                          outcome:"Account recovery time drops; helpdesk ticket volume decreases.",                                                             why:"Access recovery bottlenecks frustrate educators and delay time-sensitive work."},
+  {num:20, sym:"Ap", name:"Application Processor Agent",   domain:5,  period:4, group:2,  what:"Reviews and routes educator license applications, flagging errors and missing documents.",                                      outcome:"Complete applications move to review 60% faster.",                                                                           why:"Manual application triage is labor-intensive and inconsistent; automation standardizes intake quality."},
+  {num:21, sym:"Ga", name:"Grant Award Agent",             domain:3,  period:4, group:3,  what:"Manages the full grant award workflow from notice to executed agreement.",                                                      outcome:"Award-to-execution cycle time drops; districts receive funds faster.",                                                       why:"Delays between award and execution defer program implementation and impact student outcomes."},
+  {num:22, sym:"Da", name:"Degree Audit Agent",            domain:4,  period:4, group:4,  what:"Audits educator preparation program completers against state licensure requirements.",                                          outcome:"EPP compliance review time drops; credential gaps identified earlier.",                                                      why:"Misalignment between EPP programs and licensure requirements creates surprise denials."},
+  {num:23, sym:"Cd", name:"Curriculum Designer Agent",     domain:4,  period:4, group:7,  what:"Assists in building standards-aligned instructional frameworks and scope-and-sequence documents.",                             outcome:"Curriculum development cycles shorten; alignment quality improves.",                                                         why:"Standards revision cycles create high-volume curriculum work that strains state curriculum teams."},
+  {num:24, sym:"Wi", name:"Wellness Intake Agent",         domain:6,  period:4, group:6,  what:"Screens incoming requests for student mental health and wraparound services, routing to appropriate resources.",               outcome:"Students reach support services faster; no-wrong-door access improves.",                                                     why:"Families and educators often don't know which agency or program handles specific student needs."},
+  {num:25, sym:"Cm", name:"Career Match Agent",            domain:5,  period:4, group:5,  what:"Matches educator candidates to open positions based on certification, endorsements, and district needs.",                      outcome:"Time-to-fill for hard-to-staff positions decreases; match quality improves.",                                                why:"Hard-to-staff school positions persist partly because matching is inefficient and fragmented."},
+  {num:26, sym:"Gs", name:"Grant Submission Agent",        domain:3,  period:4, group:3,  what:"Assembles and validates grant submissions from district-provided data and narrative inputs.",                                  outcome:"Submission quality improves; incomplete applications drop.",                                                                why:"Grant applications fail on technical compliance issues; pre-submission validation prevents denials."},
+  {num:27, sym:"Ld", name:"Legislative Digest Agent",      domain:16, period:4, group:16, what:"Summarizes new legislation relevant to the department and flags required regulatory responses.",                               outcome:"Policy staff are briefed on relevant bills within hours of introduction.",                                                   why:"Legislatures introduce dozens of education bills each session; manual tracking misses critical timelines."},
+  {num:28, sym:"Ci", name:"Civil Rights Intake Agent",     domain:11, period:4, group:11, what:"Processes incoming complaints under Title VI, IX, and II, with triage and routing.",                                           outcome:"Complaint routing accuracy improves; response-time compliance increases.",                                                   why:"Civil rights complaints have strict federal timelines; routing errors create liability for the SEA."},
+  {num:29, sym:"Bp", name:"Budget Processor Agent",        domain:12, period:4, group:12, what:"Automates budget amendment reviews against allowable-use rules and available balances.",                                       outcome:"Amendment cycle time drops; disallowed requests flagged before submission.",                                                 why:"Budget amendments require multi-step review; automation accelerates legitimate amendments while blocking errors."},
+  {num:30, sym:"Ti", name:"Transcript Issuance Agent",     domain:2,  period:4, group:2,  what:"Processes official transcript requests for educator preparation program records.",                                              outcome:"Transcript turnaround time drops from weeks to days.",                                                                      why:"Transcript delays block license applications and employment; faster issuance removes a systemic bottleneck."},
+  {num:31, sym:"Lr", name:"Leave Request Agent",           domain:13, period:4, group:13, what:"Automates FMLA and state leave request workflows with eligibility verification and approval routing.",                         outcome:"Leave processing time drops; compliance with leave laws improves.",                                                          why:"Manual leave administration creates inconsistency and exposes the agency to employment litigation."},
+  {num:32, sym:"Bf", name:"Budget Forecast Agent",         domain:12, period:4, group:12, what:"Projects year-end fund balances by program using current expenditure rates and commitments.",                                  outcome:"Finance staff identify over- and under-spending 60 days earlier.",                                                           why:"End-of-year surprises in program budgets create compliance issues and disrupt planning."},
+  {num:33, sym:"Po", name:"Purchase Order Agent",          domain:14, period:4, group:14, what:"Automates PO creation, matching, and approval routing against program budgets.",                                               outcome:"Procurement cycle time drops; off-contract spend decreases.",                                                               why:"Manual PO processing is slow and error-prone, especially at fiscal year end."},
+  {num:34, sym:"Ab", name:"Access Provision Agent",        domain:1,  period:4, group:15, what:"Automates provisioning and de-provisioning of district and staff access to state data systems.",                              outcome:"Provisioning time drops; orphaned accounts eliminated within 24 hours of separation.",                                      why:"Orphaned accounts are a top cybersecurity risk in state education agencies."},
+  {num:35, sym:"Ds", name:"Data Sharing Agent",            domain:10, period:4, group:10, what:"Manages data sharing agreement workflows — intake, legal review routing, execution, and tracking.",                           outcome:"DSA execution time drops; compliance tracking becomes automated.",                                                           why:"DSAs are foundational to research and interagency collaboration but are administratively burdensome."},
+  {num:36, sym:"Ei", name:"Early Intervention Agent",      domain:17, period:4, group:17, what:"Screens early childhood assessment data for developmental concern indicators and routes to intervention programs.",             outcome:"Time from screening to intervention referral drops; more children receive timely services.",                                why:"Early identification and intervention are the highest-leverage points in the birth-to-grade-3 pipeline."},
+
+  // PERIOD 5
+  {num:37, sym:"Tb", name:"Trusted Identity Agent",        domain:1,  period:5, group:1,  what:"Provides enterprise identity brokerage across state agency systems with continuous authentication.",                           outcome:"Identity-related security incidents drop; cross-system access is seamless.",                                                 why:"Identity fragmentation across state systems is a leading source of both security risk and user frustration."},
+  {num:38, sym:"Ad", name:"Admissions Decision Agent",     domain:5,  period:5, group:2,  what:"Recommends licensure decisions on complete applications with evidence and rationale.",                                         outcome:"Decision consistency improves; processing time for complete applications drops 40%.",                                        why:"Inconsistent licensure decisions expose the SEA to appeals and litigation."},
+  {num:39, sym:"Af", name:"Aid Appeal Agent",              domain:3,  period:5, group:3,  what:"Reviews grant appeals and recommends disposition with supporting documentation.",                                              outcome:"Appeal resolution time drops; disposition consistency improves.",                                                            why:"Grant appeals require consistent, well-documented decisions that hold up to legislative scrutiny."},
+  {num:40, sym:"Ar2",name:"Assessment Recommender",        domain:2,  period:5, group:4,  what:"Recommends intervention strategies for schools based on assessment data patterns.",                                            outcome:"Schools receive targeted recommendations instead of generic guidance.",                                                       why:"Assessment data is abundant but translated into actionable recommendations too slowly."},
+  {num:41, sym:"At", name:"Adaptive Tutor Agent",          domain:4,  period:5, group:7,  what:"Provides personalized professional learning pathways for educators based on evaluation data and goals.",                       outcome:"Educator professional learning is personalized at scale.",                                                                   why:"One-size-fits-all PD is ineffective; personalized pathways improve educator retention and practice."},
+  {num:42, sym:"Rt", name:"Risk Triage Agent",             domain:6,  period:5, group:6,  what:"Analyzes district and school data to identify student populations at elevated risk of disengagement.",                       outcome:"SEA intervention resources are targeted to highest-need schools earlier in the year.",                                      why:"Reactive intervention after dropout is far less effective than proactive early identification."},
+  {num:43, sym:"Pm", name:"Placement Match Agent",         domain:5,  period:5, group:5,  what:"Matches educator candidates to hard-to-staff schools with fit-scoring on multiple dimensions.",                              outcome:"Placement match quality improves; first-year attrition in hard-to-staff schools decreases.",                                why:"Poor placement fit is a leading driver of early-career attrition in high-need schools."},
+  {num:44, sym:"Gr", name:"Grant Risk Agent",              domain:3,  period:5, group:3,  what:"Monitors subgrantee spending patterns and compliance indicators to flag risk before site visits.",                            outcome:"Monitoring visits are targeted at highest-risk subgrantees; findings decrease.",                                            why:"SEAs cannot monitor every subgrantee equally; risk-tiered monitoring concentrates resources appropriately."},
+  {num:45, sym:"Ra", name:"Research Discovery Agent",      domain:10, period:5, group:10, what:"Surfaces relevant research evidence for policy questions and program design requests.",                                        outcome:"Policy decisions are supported by current evidence without manual literature review.",                                       why:"Evidence-based policymaking requires faster synthesis of research than human teams can provide."},
+  {num:46, sym:"Ca", name:"Case Copilot Agent",            domain:8,  period:5, group:8,  what:"Assists special education coordinators in reviewing IEP compliance and due process timelines.",                               outcome:"IEP compliance rate improves; due process resolution time drops.",                                                           why:"IDEA timelines are non-negotiable; a missed deadline creates legal exposure for the LEA and SEA."},
+  {num:47, sym:"Rb", name:"Resolution Advisor Agent",      domain:11, period:5, group:11, what:"Recommends resolution strategies for civil rights complaints based on similar case precedents.",                              outcome:"Resolution consistency improves; settlement quality increases.",                                                             why:"Inconsistent civil rights resolutions create disparate treatment claims and appellate reversals."},
+  {num:48, sym:"Rc", name:"Records Compliance Agent",      domain:2,  period:5, group:16, what:"Monitors FERPA compliance across district data practices and flags potential violations.",                                     outcome:"FERPA violations identified and corrected before they become complaints.",                                                   why:"FERPA violations expose the SEA to federal fund loss and reputational damage."},
+  {num:49, sym:"Fh", name:"Faculty Hiring Agent",          domain:13, period:5, group:13, what:"Manages the full talent acquisition workflow for agency positions, from posting to recommendation.",                          outcome:"Time-to-hire drops; hiring process quality and equity improve.",                                                            why:"Slow hiring cycles cause the SEA to lose top candidates to faster-moving employers."},
+  {num:50, sym:"Al", name:"Allocation Agent",              domain:3,  period:5, group:3,  what:"Calculates and recommends funding allocations to districts based on statutory formulas and data inputs.",                    outcome:"Allocation cycle time drops; formula errors eliminated.",                                                                    why:"Allocation errors create significant downstream budget problems for districts and the state."},
+  {num:51, sym:"Cb", name:"Contract Compliance Agent",     domain:14, period:5, group:14, what:"Monitors vendor performance against contract terms and flags deviations for review.",                                         outcome:"Contract compliance issues identified earlier; fewer penalties and overruns.",                                               why:"SEAs manage hundreds of vendor contracts; manual compliance monitoring is inconsistent."},
+  {num:52, sym:"Dg", name:"Data Governance Agent",         domain:10, period:5, group:10, what:"Enforces data governance policies across agency data systems, flagging policy violations.",                                   outcome:"Data quality and consistency improve; unauthorized data uses detected earlier.",                                             why:"Without active governance, data quality degrades and audit risk increases."},
+  {num:53, sym:"Ep", name:"Engagement Predictor Agent",    domain:6,  period:5, group:6,  what:"Predicts student chronic absenteeism and disengagement risk at the school and district level.",                              outcome:"Districts deploy intervention resources before chronic absence becomes entrenched.",                                          why:"Chronic absenteeism is the most consistent predictor of academic failure but is often identified too late."},
+  {num:54, sym:"As", name:"Accreditation Support Agent",   domain:4,  period:5, group:4,  what:"Supports EPP accreditation self-study processes by organizing evidence and tracking standards.",                             outcome:"Self-study cycle time drops; evidence quality improves.",                                                                    why:"CAEP accreditation requires extensive evidence organization; automation reduces burden on EPPs."},
+
+  // PERIOD 6
+  {num:55, sym:"Ib", name:"Identity Broker Agent",         domain:1,  period:6, group:1,  what:"Federates identity across the SEA, districts, and state government systems.",                                                 outcome:"Single sign-on works seamlessly across all state education platforms.",                                                      why:"Identity fragmentation is a systemic drag on cross-agency collaboration and data sharing."},
+  {num:56, sym:"Re", name:"Retention Coord Agent",         domain:5,  period:6, group:2,  what:"Coordinates retention interventions across educator support, licensure, and HR systems.",                                    outcome:"Educator attrition in hard-to-staff schools decreases; early warning triggers retention outreach.",                         why:"Educator retention requires coordinated response across systems that don't currently talk to each other."},
+  // 57-71 are lanthanides — see below
+  {num:72, sym:"Ao", name:"Aid Optimization Agent",        domain:3,  period:6, group:3,  what:"Optimizes federal fund drawdown timing and allocation across programs to maximize utilization.",                              outcome:"Federal fund expiration losses drop; drawdown efficiency improves.",                                                         why:"Unspent federal funds must be returned; optimized drawdown retains resources for students."},
+  {num:73, sym:"Ce", name:"Curriculum Align Agent",        domain:4,  period:6, group:4,  what:"Aligns curriculum across districts to state standards, identifying gaps at scale.",                                           outcome:"Cross-district curriculum consistency improves; standards coverage gaps identified statewide.",                             why:"Curriculum inequity across districts contributes to persistent achievement gaps."},
+  {num:74, sym:"Cf", name:"Crisis Response Agent",         domain:6,  period:6, group:6,  what:"Coordinates SEA crisis response across school safety, mental health, and family support systems.",                           outcome:"Crisis response time drops; coordination across agencies improves.",                                                         why:"School crises require multi-agency response that currently depends on ad-hoc human coordination."},
+  {num:75, sym:"Cp", name:"Career Pipeline Agent",         domain:5,  period:6, group:5,  what:"Manages the educator talent pipeline from EPP enrollment through placement and retention.",                                  outcome:"Pipeline visibility improves; supply-demand mismatches identified 2+ years earlier.",                                       why:"Educator shortages are a multi-year problem requiring pipeline visibility that doesn't currently exist."},
+  {num:76, sym:"Rf", name:"Research Compliance Agent",     domain:11, period:6, group:11, what:"Monitors research studies conducted on state student data for IRB and FERPA compliance.",                                    outcome:"Non-compliant research uses identified before data is released.",                                                            why:"Expanding research partnerships increase the surface area for data misuse and privacy violations."},
+  {num:77, sym:"Ln", name:"Learning Network Agent",        domain:4,  period:6, group:7,  what:"Connects educators across districts to share practices, resources, and professional learning.",                              outcome:"Cross-district professional learning communities form and sustain themselves.",                                               why:"Isolated professional learning fails to spread effective practice; networked learning accelerates improvement."},
+  {num:78, sym:"Sj", name:"Student Journey Agent",         domain:6,  period:6, group:6,  what:"Tracks student progress across education milestones and triggers support at transition points.",                             outcome:"Transition-point drop-off rates decrease; support arrives before students disengage.",                                       why:"The transitions between PreK-K, elementary-middle, and middle-high are the highest-risk points in a student's journey."},
+  {num:79, sym:"Tr", name:"Treasury Agent",                domain:12, period:6, group:12, what:"Manages cash flow, investment, and federal drawdown timing at the SEA level.",                                               outcome:"Investment returns improve; cash flow shortfalls eliminated.",                                                               why:"State education agencies manage hundreds of millions in federal and state funds; treasury optimization has direct program impact."},
+  {num:80, sym:"Kr", name:"Knowledge Records Agent",       domain:10, period:6, group:10, what:"Manages institutional knowledge capture and transfer across staff transitions.",                                              outcome:"Institutional knowledge survives leadership and staff turnover.",                                                            why:"SEAs lose critical program knowledge during retirements and transitions; structured capture reduces risk."},
+  {num:81, sym:"Wp", name:"Workforce Planning Agent",      domain:13, period:6, group:13, what:"Models educator workforce supply and demand statewide, including shortage projections.",                                     outcome:"Policy responses to shortages are designed 3-5 years before they become crises.",                                           why:"Educator workforce crises are predictable; earlier visibility enables policy intervention."},
+  {num:82, sym:"Sb", name:"Strategic Budget Agent",        domain:12, period:6, group:12, what:"Aligns budget decisions to strategic plan outcomes and models multi-year scenarios.",                                         outcome:"Budget allocations are explicitly tied to student outcome goals.",                                                            why:"Education budgets are large and politically complex; strategic alignment improves equity of resource distribution."},
+  {num:83, sym:"Vm", name:"Vendor Monitor Agent",          domain:14, period:6, group:14, what:"Monitors vendor performance and market conditions across the SEA's contract portfolio.",                                     outcome:"Underperforming vendors are identified earlier; rebidding is triggered proactively.",                                        why:"Vendor lock-in and performance drift are common in long-term education technology contracts."},
+  {num:84, sym:"Pm2",name:"Platform Modern Agent",         domain:15, period:6, group:15, what:"Manages legacy system modernization planning and migration risk across the SEA's technology portfolio.",                      outcome:"Modernization risks are identified and sequenced before they become failures.",                                               why:"Legacy system failures in student data and finance systems have direct program impact."},
+  {num:85, sym:"Ah", name:"Accountability Analytics Agent",domain:2,  period:6, group:2,  what:"Produces continuous school and district performance analytics beyond the annual report card.",                                outcome:"SEA leaders have real-time performance visibility, not just annual snapshots.",                                               why:"Annual report cards are too infrequent to drive timely intervention; continuous analytics closes the feedback loop."},
+  {num:86, sym:"Fe2",name:"Federal Report Agent",          domain:18, period:6, group:18, what:"Automates end-to-end federal data submissions including EDFacts, APR, and IDEA Part B.",                                    outcome:"Federal reporting accuracy improves; staff time on submissions drops 50%.",                                                  why:"Federal reporting consumes enormous staff time and is a leading source of compliance findings."},
+
+  // PERIOD 7
+  {num:87, sym:"If", name:"Identity Fabric Agent",         domain:1,  period:7, group:1,  what:"Provides zero-trust identity fabric across all state education systems with autonomous anomaly response.",                    outcome:"Security posture improves; identity-based intrusions contained within minutes.",                                             why:"Zero-trust architecture requires autonomous enforcement; human response time is too slow at scale."},
+  {num:88, sym:"Ua", name:"Universal Application Agent",   domain:5,  period:7, group:2,  what:"Provides a single intelligent portal for all educator applications, renewals, and endorsements.",                            outcome:"Educator interaction with the SEA is seamless regardless of transaction type.",                                              why:"Fragmented licensure portals create confusion, errors, and inequitable access for educators."},
+  // 89-103 actinides — see below
+  {num:104,sym:"Ak", name:"Advising Autonomy Agent",       domain:6,  period:7, group:4,  what:"Autonomously coordinates student support interventions across districts, agencies, and community partners.",                  outcome:"Multi-system student support is coordinated without human routing delays.",                                                  why:"Students with complex needs require coordinated multi-agency support that currently depends on heroic human effort."},
+  {num:105,sym:"Am", name:"Adaptive Curriculum Agent",     domain:4,  period:7, group:7,  what:"Continuously adapts state curriculum frameworks based on outcome data and emerging research.",                                outcome:"Curriculum frameworks remain current with evidence without 5-year revision cycles.",                                         why:"Static curriculum frameworks become outdated faster than revision cycles can address."},
+  {num:106,sym:"Pw", name:"Population Wellness Agent",     domain:6,  period:7, group:6,  what:"Coordinates population-level student wellness monitoring and intervention across the state.",                                 outcome:"Statewide mental health crises are identified and addressed weeks earlier.",                                                  why:"School mental health crises have systemic patterns that require population-level monitoring to detect."},
+  {num:107,sym:"Oa2",name:"Outcomes Network Agent",        domain:2,  period:7, group:2,  what:"Coordinates outcome improvement across the full state education system with autonomous resource routing.",                    outcome:"Statewide outcome improvement is coordinated in near-real-time.",                                                            why:"The final bottleneck in SEA effectiveness is the speed and quality of coordination across dozens of programs."},
+  {num:108,sym:"Rg", name:"Research Autonomy Agent",       domain:10, period:7, group:10, what:"Autonomously designs, executes, and publishes applied research on state education questions.",                                outcome:"Evidence-to-policy cycle time drops from years to months.",                                                                  why:"Policy decisions currently outpace the research cycle; autonomous research shortens the evidence gap."},
+  {num:109,sym:"Ks", name:"Knowledge Synthesis Agent",     domain:10, period:7, group:10, what:"Continuously synthesizes research, practice, and outcome data into actionable policy intelligence.",                          outcome:"Policy leaders have continuous intelligence rather than periodic reports.",                                                   why:"The volume of relevant research and data exceeds any human team's capacity to synthesize it."},
+  {num:110,sym:"Oj", name:"Omni Journey Agent",            domain:9,  period:7, group:9,  what:"Provides a unified, personalized interaction experience for all stakeholders across the SEA.",                               outcome:"No wrong door: every stakeholder interaction is intelligently routed and resolved.",                                          why:"SEA stakeholders — families, educators, districts, legislators — currently navigate fragmented systems."},
+  {num:111,sym:"Pa", name:"Payment Assurance Agent",       domain:12, period:7, group:12, what:"Ensures payment accuracy and timing across all SEA financial flows with autonomous exception handling.",                     outcome:"Payment errors and delays eliminated; audit findings on financial controls drop.",                                           why:"Late or erroneous payments to districts and vendors disrupt program continuity."},
+  {num:112,sym:"Rh", name:"Records Autonomy Agent",        domain:2,  period:7, group:16, what:"Autonomously manages the lifecycle of all education records with continuous compliance monitoring.",                          outcome:"Records compliance is continuous, not periodic; FERPA exposure drops to near zero.",                                         why:"Education records lifecycle management is complex and high-stakes; automation reduces human error."},
+  {num:113,sym:"Hc", name:"Human Capital Agent",           domain:13, period:7, group:13, what:"Autonomously manages the full educator workforce lifecycle from pipeline to retirement.",                                     outcome:"Workforce decisions are data-driven and executed at speed.",                                                                 why:"The educator workforce is the largest budget line in education; optimizing its management has enormous leverage."},
+  {num:114,sym:"Fi", name:"Fiscal Intelligence Agent",     domain:12, period:7, group:12, what:"Provides autonomous fiscal intelligence across all state and federal education funds.",                                       outcome:"Resource allocation maximizes student outcomes per dollar.",                                                                 why:"Education funding is complex; optimizing allocation across programs and populations requires continuous intelligence."},
+  {num:115,sym:"Vs", name:"Vendor Steward Agent",          domain:14, period:7, group:14, what:"Autonomously manages the SEA's vendor ecosystem for performance, risk, and market alignment.",                              outcome:"Vendor portfolio is continuously optimized; contract value improves.",                                                        why:"The SEA's vendor ecosystem is large and complex; autonomous stewardship prevents value erosion."},
+  {num:116,sym:"Uo", name:"Agency OS Agent",               domain:15, period:7, group:15, what:"Provides an autonomous operating layer that orchestrates all SEA systems and agents.",                                       outcome:"The SEA operates as a coherent system rather than a collection of siloed functions.",                                        why:"System integration is the hardest and most impactful challenge in state education administration."},
+  {num:117,sym:"An", name:"Accountability Intel Agent",    domain:2,  period:7, group:17, what:"Provides autonomous accountability intelligence across the full state education system.",                                     outcome:"Policy and program decisions are continuously informed by outcome intelligence.",                                             why:"Accountability systems produce data too slowly to drive real-time decisions; autonomous intelligence closes the gap."},
+  {num:118,sym:"Pt", name:"Public Trust Agent",            domain:9,  period:7, group:18, what:"Manages the SEA's public communication, transparency reporting, and legislative accountability.",                             outcome:"Public trust in the education system is measurable and improves over time.",                                                 why:"Public trust is the ultimate license to operate; it requires continuous, transparent communication at scale."},
+
+  // LANTHANIDES (57-71) — Core Systems
+  {num:57, sym:"Ie", name:"Identity Engine",               domain:1,  period:"L", group:1,  what:"Core identity and authentication engine underlying all agency portal access.",                                              outcome:"Reliable, auditable identity for all agency interactions.",                                                                  why:"All agent-mediated transactions require authoritative identity; this is the foundational layer."},
+  {num:58, sym:"Ee", name:"Eligibility Engine",            domain:3,  period:"L", group:2,  what:"Centralized rules engine for grant and program eligibility determinations.",                                                outcome:"Consistent, auditable eligibility determinations across all programs.",                                                      why:"Inconsistent eligibility decisions create appeals and inequitable program access."},
+  {num:59, sym:"Fn", name:"Forms Engine",                  domain:9,  period:"L", group:3,  what:"Dynamic forms platform for all agency data collection and reporting workflows.",                                            outcome:"Form completion rates improve; data quality increases.",                                                                     why:"Paper and static forms create data quality problems that cascade through reporting systems."},
+  {num:60, sym:"Do", name:"Document OCR Agent",            domain:10, period:"L", group:4,  what:"Extracts structured data from documents, transcripts, and forms across the agency.",                                        outcome:"Manual data entry from documents eliminated; processing speed increases.",                                                   why:"Document-heavy workflows are slow and error-prone; OCR is foundational to automation."},
+  {num:61, sym:"Em", name:"Evidence Matching",             domain:11, period:"L", group:5,  what:"Matches evidence documents to compliance requirements across all federal programs.",                                         outcome:"Evidence gaps are identified before submission deadlines.",                                                                   why:"Evidence-gathering for compliance is labor-intensive and prone to last-minute scrambles."},
+  {num:62, sym:"Ng", name:"Notice Generator",              domain:9,  period:"L", group:6,  what:"Generates official notices, letters, and communications from agency data and templates.",                                   outcome:"Notice generation time drops; consistency and compliance improve.",                                                          why:"Official communications require accuracy and legal precision; automated generation reduces errors."},
+  {num:63, sym:"Pr", name:"Payments Rail",                 domain:12, period:"L", group:7,  what:"Core payment processing infrastructure for all state education financial flows.",                                           outcome:"All payment types execute reliably with full audit trail.",                                                                   why:"Reliable payment infrastructure is foundational to district trust in the SEA."},
+  {num:64, sym:"Md", name:"Master Data Agent",             domain:10, period:"L", group:8,  what:"Maintains the authoritative master data layer — districts, schools, educators, students — across all systems.",            outcome:"A single source of truth for all entity data across the agency.",                                                            why:"Master data inconsistency is a leading cause of reporting errors and system integration failures."},
+  {num:65, sym:"Rv", name:"Rules Version Agent",           domain:16, period:"L", group:9,  what:"Manages versioning of policy rules, formulas, and calculation logic used across agent systems.",                          outcome:"Policy changes are reflected consistently and auditably across all systems.",                                                 why:"Policy rule changes must be implemented consistently; version drift creates calculation errors."},
+  {num:66, sym:"Qm", name:"Queue Management",              domain:13, period:"L", group:10, what:"Manages work queues, prioritization, and routing across all agency workflows.",                                             outcome:"Work is distributed equitably; SLA compliance improves.",                                                                    why:"Ad-hoc queue management creates bottlenecks and inconsistent service levels."},
+  {num:67, sym:"Me", name:"Messaging Agent",               domain:9,  period:"L", group:11, what:"Provides reliable, compliant messaging infrastructure for all agency communications.",                                      outcome:"Communications are delivered, tracked, and archived consistently.",                                                          why:"Communication reliability is foundational to agency credibility and compliance."},
+  {num:68, sym:"Es", name:"Evidence Store",                domain:10, period:"L", group:12, what:"Centralized evidence repository for compliance, audit, and legal purposes.",                                               outcome:"Evidence retrieval for audits drops from weeks to hours.",                                                                    why:"Distributed evidence creates gaps and inconsistency in audit responses."},
+  {num:69, sym:"Ag", name:"Address Standard",              domain:9,  period:"L", group:13, what:"Standardizes and validates address and geographic data across all agency systems.",                                         outcome:"Mailing errors and geographic data inconsistencies eliminated.",                                                              why:"Address quality is foundational to mail, emergency notification, and geographic reporting."},
+  {num:70, sym:"Si", name:"SIS Connector",                 domain:2,  period:"L", group:14, what:"Connects agency systems to district student information systems for real-time data exchange.",                              outcome:"Student data is current across all agency analytics and reporting systems.",                                                  why:"Stale student data causes incorrect intervention targeting and reporting errors."},
+  {num:71, sym:"Lo", name:"LMS Connector",                 domain:4,  period:"L", group:15, what:"Connects agency professional learning systems to district LMS platforms.",                                                  outcome:"Professional learning completion data is visible across the agency in real time.",                                           why:"Professional learning data fragmentation prevents accurate reporting on educator development."},
+
+  // ACTINIDES (89-103) — Trust Layer
+  {num:89, sym:"Fd", name:"Fraud Detection Agent",         domain:11, period:"A", group:1,  what:"Detects fraudulent applications, claims, and access patterns across agency systems.",                                       outcome:"Fraud losses decrease; suspicious patterns are flagged before funds are released.",                                          why:"Federal programs are targets for fraud; detection must be built into every transaction layer."},
+  {num:90, sym:"Pi", name:"Privacy Impact Agent",          domain:11, period:"A", group:2,  what:"Assesses privacy impact of new systems, data uses, and vendor relationships.",                                             outcome:"Privacy risks are identified before systems go live.",                                                                        why:"Privacy impact assessment is required for federally funded systems and protects student data."},
+  {num:91, sym:"Fg", name:"FERPA Guard Agent",             domain:11, period:"A", group:3,  what:"Monitors all data flows and disclosures for FERPA compliance in real time.",                                               outcome:"FERPA violations are detected and stopped before they become complaints.",                                                    why:"FERPA violations can result in loss of federal funding; automated monitoring is the only scalable solution."},
+  {num:92, sym:"Cg", name:"Compliance Monitor",            domain:11, period:"A", group:4,  what:"Provides continuous compliance monitoring across all federal and state program requirements.",                              outcome:"Compliance gaps are identified and remediated proactively.",                                                                  why:"The number of compliance requirements facing SEAs exceeds what manual monitoring can handle."},
+  {num:93, sym:"Ov", name:"AI Oversight Agent",            domain:11, period:"A", group:5,  what:"Monitors all deployed AI agents for performance, bias, and compliance with agency AI policy.",                             outcome:"AI behavior is continuously audited; deviations are flagged for human review.",                                               why:"AI systems must be monitored continuously to detect drift, bias, and unintended behavior."},
+  {num:94, sym:"Au", name:"Audit Trail Agent",             domain:12, period:"A", group:6,  what:"Maintains immutable audit trails for all agent actions and data transactions.",                                             outcome:"Full audit reconstruction is available for any transaction within minutes.",                                                  why:"SEAs must be able to reconstruct any decision or transaction for legislative and legal review."},
+  {num:95, sym:"Eq", name:"Equity Impact Agent",           domain:6,  period:"A", group:7,  what:"Monitors all agency decisions and resource allocations for disparate impact across student populations.",                  outcome:"Equity disparities in agency decisions are identified and corrected before they compound.",                                  why:"SEAs have civil rights obligations that require active equity monitoring, not just annual reporting."},
+  {num:96, sym:"Cy", name:"Cyber Risk Agent",              domain:15, period:"A", group:8,  what:"Monitors the SEA's cyber risk posture and student data security across connected district systems.",                       outcome:"Cyber incidents are detected and contained earlier; student data breaches decrease.",                                         why:"State education agencies are high-value targets for ransomware; proactive monitoring is essential."},
+  {num:97, sym:"Tc", name:"Title IX Review Agent",         domain:11, period:"A", group:9,  what:"Reviews Title IX compliance across districts and flags systemic patterns requiring SEA response.",                         outcome:"Systemic Title IX issues are identified at the state level before they become federal complaints.",                          why:"SEAs have Title IX oversight responsibilities for districts; systemic monitoring requires automation."},
+  {num:98, sym:"Aj", name:"Accreditation Audit Agent",     domain:4,  period:"A", group:10, what:"Monitors ongoing EPP accreditation compliance between formal review cycles.",                                               outcome:"Accreditation risks are identified and addressed before formal reviews.",                                                     why:"EPP accreditation issues can close educator preparation programs; early warning prevents workforce impacts."},
+  {num:99, sym:"Er", name:"Ethics Review Agent",           domain:11, period:"A", group:11, what:"Reviews agency decisions and AI outputs for ethical concerns and conflicts of interest.",                                   outcome:"Ethical issues in agency decisions are identified before public exposure.",                                                   why:"Public trust in education requires that agency decisions meet ethical standards consistently."},
+  {num:100,sym:"Ea", name:"Experience Monitor Agent",      domain:9,  period:"A", group:12, what:"Monitors stakeholder experience across all agency touchpoints and flags service failures.",                                 outcome:"Service quality problems are identified and addressed before they erode trust.",                                              why:"Stakeholder experience directly affects engagement, compliance, and public support for education."},
+  {num:101,sym:"Rs", name:"Risk Scoring Agent",            domain:10, period:"A", group:13, what:"Provides continuous risk scoring across all agency operations, programs, and external relationships.",                      outcome:"Risk is managed proactively rather than reactively.",                                                                         why:"SEAs face dozens of simultaneous risk factors; continuous scoring enables intelligent prioritization."},
+  {num:102,sym:"Ir", name:"Incident Review Agent",         domain:11, period:"A", group:14, what:"Manages investigation and response workflows for compliance incidents, complaints, and violations.",                        outcome:"Incident resolution time drops; response consistency improves.",                                                              why:"Incident response quality directly affects legal exposure and federal oversight relationships."},
+  {num:103,sym:"Pb", name:"Public Trust Agent",            domain:9,  period:"A", group:15, what:"Monitors and reports on the SEA's public accountability and transparency commitments.",                                     outcome:"Public accountability is measurable and continuously reported.",                                                              why:"Legislative and public confidence in education agencies depends on demonstrated accountability."},
+];
+
+// ── GOALS ──
+const GOALS = {
+  equity: {
+    label: "Close Equity Gaps",
+    agents: [42, 53, 95, 78, 106]
+  },
+  accountability: {
+    label: "Strengthen Accountability",
+    agents: [40, 85, 86, 92, 117]
+  },
+  workforce: {
+    label: "Grow Educator Pipeline",
+    agents: [12, 25, 75, 38, 113]
+  },
+  grants: {
+    label: "Maximize Federal Funding",
+    agents: [44, 72, 50, 86, 92]
+  },
+  experience: {
+    label: "Improve Family & Student Experience",
+    agents: [9, 10, 78, 110, 103]
+  },
+  sped: {
+    label: "Accelerate Special Ed Compliance",
+    agents: [46, 91, 92, 97, 102]
+  }
+};
+
+// ════════════════════════════════════════════════════
+// RENDERING
+// ════════════════════════════════════════════════════
+
+const agentMap = {};
+AGENTS.forEach(a => { agentMap[a.num] = a; });
+
+let activeDomains = new Set();
+let activeGoal = null;
+let modalIndex = 0; // index into current visible agents
+
+function domainColor(id) {
+  return (DOMAINS.find(d => d.id === id) || {}).color || '#666';
+}
+function periodLabel(p) {
+  if (p === 'L') return 'L';
+  if (p === 'A') return 'A';
+  return MATURITY[p - 1] || '';
+}
+
+// Build domain chips
+function buildDomainChips() {
+  const container = document.getElementById('domain-chips');
+  DOMAINS.forEach(d => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.style.borderColor = d.color;
+    chip.style.color = d.color;
+    chip.style.background = 'transparent';
+    chip.textContent = d.id + ' ' + d.name;
+    chip.dataset.domain = d.id;
+    chip.addEventListener('click', () => toggleDomain(d.id, chip));
+    container.appendChild(chip);
+  });
+}
+
+// Build domain legend
+function buildDomainLegend() {
+  const container = document.getElementById('domain-legend');
+  DOMAINS.forEach(d => {
+    const item = document.createElement('div');
+    item.className = 'domain-item';
+    item.innerHTML = `<div class="domain-swatch" style="background:${d.color}"></div><span class="domain-num">${d.id}</span>${d.name}`;
+    item.addEventListener('click', () => {
+      // find chip and toggle
+      const chip = document.querySelector(`[data-domain="${d.id}"]`);
+      if (chip) toggleDomain(d.id, chip);
+    });
+    container.appendChild(item);
+  });
+}
+
+function toggleDomain(id, chip) {
+  if (activeDomains.has(id)) {
+    activeDomains.delete(id);
+    chip.classList.remove('active');
+  } else {
+    activeDomains.add(id);
+    chip.classList.add('active');
+  }
+  renderTable();
+}
+
+// ── TABLE LAYOUT ──
+// Grid: 19 columns (1 row-label + 18 groups)
+// Rows: header, P1..P7, lant-sep, lant-row, acti-sep, acti-row
+function buildTable() {
+  const table = document.getElementById('periodic-table');
+  table.innerHTML = '';
+
+  // Helper: empty cell
+  function empty(colSpan) {
+    const el = document.createElement('div');
+    el.className = 'cell-empty';
+    if (colSpan > 1) el.style.gridColumn = `span ${colSpan}`;
+    return el;
+  }
+
+  // Header row: row-label spacer + group numbers
+  table.appendChild(empty(1));
+  for (let g = 1; g <= 18; g++) {
+    const lbl = document.createElement('div');
+    lbl.className = 'col-label';
+    lbl.textContent = g;
+    table.appendChild(lbl);
+  }
+
+  // Periods 1-7 (with Period 6 having lanthanide gap in groups 3-17)
+  const periodData = getPeriodLayout();
+
+  for (let p = 1; p <= 7; p++) {
+    // Row label
+    const rl = document.createElement('div');
+    rl.className = 'row-label';
+    rl.textContent = p;
+    table.appendChild(rl);
+
+    for (let g = 1; g <= 18; g++) {
+      const agent = findAgent(p, g);
+      if (p === 6 && g === 3) {
+        // Lanthanide reference block
+        const ref = document.createElement('div');
+        ref.style.gridColumn = '4 / 18'; // groups 3-16 = 14 cols
+        ref.style.display = 'flex';
+        ref.style.alignItems = 'center';
+        ref.style.justifyContent = 'center';
+        ref.style.fontSize = '9px';
+        ref.style.fontFamily = "'IBM Plex Mono', monospace";
+        ref.style.color = 'var(--text-dim)';
+        ref.style.borderTop = '1px dashed #c8a02040';
+        ref.style.borderBottom = '1px dashed #c8a02040';
+        ref.style.letterSpacing = '.08em';
+        ref.textContent = 'Core Systems 57–71 ↓';
+        table.appendChild(ref);
+        g = 16; // skip to 17
+        continue;
+      }
+      if (p === 7 && g === 3) {
+        const ref = document.createElement('div');
+        ref.style.gridColumn = '4 / 18';
+        ref.style.display = 'flex';
+        ref.style.alignItems = 'center';
+        ref.style.justifyContent = 'center';
+        ref.style.fontSize = '9px';
+        ref.style.fontFamily = "'IBM Plex Mono', monospace";
+        ref.style.color = 'var(--text-dim)';
+        ref.style.borderTop = '1px dashed #e0507040';
+        ref.style.borderBottom = '1px dashed #e0507040';
+        ref.style.letterSpacing = '.08em';
+        ref.textContent = 'Trust Layer 89–103 ↓';
+        table.appendChild(ref);
+        g = 16;
+        continue;
+      }
+
+      if (agent) {
+        table.appendChild(makeCell(agent));
+      } else {
+        table.appendChild(empty(1));
+      }
+    }
+  }
+
+  // Separator
+  const sep1 = document.createElement('div');
+  sep1.style.gridColumn = '1 / 20';
+  sep1.style.height = '16px';
+  table.appendChild(sep1);
+
+  // Lanthanide row
+  const lrl = document.createElement('div');
+  lrl.className = 'row-label';
+  lrl.style.fontSize = '8px';
+  lrl.innerHTML = 'Core<br>Sys';
+  lrl.style.writingMode = 'horizontal-tb';
+  lrl.style.transform = 'none';
+  lrl.style.fontSize = '8px';
+  table.appendChild(lrl);
+
+  for (let g = 1; g <= 18; g++) {
+    const agent = AGENTS.find(a => a.period === 'L' && a.group === g);
+    if (agent) {
+      const cell = makeCell(agent);
+      cell.style.background = cell.style.background.replace(')', ', 0.9)');
+      // tint lanthanide
+      cell.style.outline = '1px solid #c8a02030';
+      table.appendChild(cell);
+    } else {
+      table.appendChild(empty(1));
+    }
+  }
+
+  // Separator
+  const sep2 = document.createElement('div');
+  sep2.style.gridColumn = '1 / 20';
+  sep2.style.height = '8px';
+  table.appendChild(sep2);
+
+  // Actinide row
+  const arl = document.createElement('div');
+  arl.className = 'row-label';
+  arl.style.fontSize = '8px';
+  arl.innerHTML = 'Trust<br>Layer';
+  arl.style.writingMode = 'horizontal-tb';
+  arl.style.transform = 'none';
+  table.appendChild(arl);
+
+  for (let g = 1; g <= 18; g++) {
+    const agent = AGENTS.find(a => a.period === 'A' && a.group === g);
+    if (agent) {
+      const cell = makeCell(agent);
+      cell.style.outline = '1px solid #e0507030';
+      table.appendChild(cell);
+    } else {
+      table.appendChild(empty(1));
+    }
+  }
+}
+
+function findAgent(period, group) {
+  return AGENTS.find(a => a.period === period && a.group === group && a.period !== 'L' && a.period !== 'A');
+}
+
+function makeCell(agent) {
+  const color = domainColor(agent.domain);
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  cell.dataset.num = agent.num;
+
+  // Background: darken domain color
+  const hex = color;
+  cell.style.background = hexToRgba(hex, 0.18);
+  cell.style.borderColor = hexToRgba(hex, 0.35);
+
+  cell.innerHTML = `
+    <div class="cell-inner">
+      <div class="cell-num">${agent.num}</div>
+      <div class="cell-sym">${agent.sym}</div>
+      <div class="cell-name">${agent.name.replace(' Agent','').replace(' Agent','')}</div>
+    </div>
+  `;
+  cell.addEventListener('click', () => openModal(agent.num));
+  return cell;
+}
+
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function getPeriodLayout() {}
+
+// ── RENDER (filter application) ──
+function renderTable() {
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => {
+    const num = parseInt(cell.dataset.num);
+    const agent = agentMap[num];
+    if (!agent) return;
+
+    const matchesDomain = activeDomains.size === 0 || activeDomains.has(agent.domain);
+    const matchesGoal = !activeGoal || GOALS[activeGoal]?.agents.includes(num);
+
+    if (activeDomains.size > 0 || activeGoal) {
+      if (matchesDomain && (activeGoal ? matchesGoal : true)) {
+        cell.classList.remove('dimmed');
+        cell.classList.toggle('highlighted', !!activeGoal && matchesGoal);
+      } else {
+        cell.classList.add('dimmed');
+        cell.classList.remove('highlighted');
+      }
+    } else {
+      cell.classList.remove('dimmed', 'highlighted');
+    }
+  });
+}
+
+// ── GOAL ──
+function selectGoal(btn) {
+  const goal = btn.dataset.goal;
+  document.querySelectorAll('.goal-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeGoal = goal;
+
+  const seq = GOALS[goal].agents;
+  const seqEl = document.getElementById('goal-seq-agents');
+  seqEl.innerHTML = '';
+  seq.forEach((num, i) => {
+    const agent = agentMap[num];
+    if (!agent) return;
+    if (i > 0) {
+      const arrow = document.createElement('div');
+      arrow.className = 'seq-arrow';
+      arrow.textContent = '→';
+      seqEl.appendChild(arrow);
+    }
+    const el = document.createElement('div');
+    el.className = 'seq-agent';
+    el.innerHTML = `
+      <div class="seq-num">${i+1}</div>
+      <div class="seq-sym">${agent.sym}</div>
+      <div class="seq-name">${agent.name}</div>
+    `;
+    el.style.borderColor = hexToRgba(domainColor(agent.domain), 0.5);
+    el.addEventListener('click', () => openModal(num));
+    seqEl.appendChild(el);
+  });
+
+  document.getElementById('goal-sequence').classList.add('visible');
+  renderTable();
+}
+
+function clearGoal() {
+  document.querySelectorAll('.goal-btn').forEach(b => b.classList.remove('active'));
+  activeGoal = null;
+  document.getElementById('goal-sequence').classList.remove('visible');
+  renderTable();
+}
+
+// ── MODAL ──
+let currentAgentNum = null;
+const visibleAgents = () => AGENTS.filter(a => {
+  const matchesDomain = activeDomains.size === 0 || activeDomains.has(a.domain);
+  return matchesDomain;
+});
+
+function openModal(num) {
+  currentAgentNum = num;
+  const agent = agentMap[num];
+  if (!agent) return;
+
+  const color = domainColor(agent.domain);
+  const domainName = (DOMAINS.find(d => d.id === agent.domain) || {}).name || '';
+  const maturity = agent.period === 'L' ? 'Core System' : agent.period === 'A' ? 'Trust Layer' : MATURITY[agent.period - 1];
+
+  // Preview
+  const preview = document.getElementById('modal-preview');
+  preview.style.background = hexToRgba(color, 0.22);
+  preview.style.border = `1px solid ${hexToRgba(color, 0.5)}`;
+  preview.innerHTML = `
+    <div class="modal-num">${agent.num}</div>
+    <div class="modal-sym">${agent.sym}</div>
+  `;
+
+  document.getElementById('modal-name').textContent = agent.name;
+
+  const tags = document.getElementById('modal-tags');
+  tags.innerHTML = '';
+  [domainName, maturity].forEach(t => {
+    const tag = document.createElement('div');
+    tag.className = 'modal-tag';
+    tag.textContent = t;
+    tag.style.borderColor = color;
+    tag.style.color = color;
+    tags.appendChild(tag);
+  });
+
+  document.getElementById('modal-what').textContent = agent.what;
+  document.getElementById('modal-outcome').textContent = agent.outcome;
+  document.getElementById('modal-why').textContent = agent.why;
+
+  document.getElementById('mf-num').textContent = agent.num;
+  document.getElementById('mf-sym').textContent = agent.sym;
+  document.getElementById('mf-domain').textContent = domainName;
+  document.getElementById('mf-period').textContent = agent.period;
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay')) {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+}
+
+function navModal(dir) {
+  const all = AGENTS;
+  const idx = all.findIndex(a => a.num === currentAgentNum);
+  const next = all[(idx + dir + all.length) % all.length];
+  openModal(next.num);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal({target: document.getElementById('modal-overlay')});
+  if (e.key === 'ArrowRight') navModal(1);
+  if (e.key === 'ArrowLeft') navModal(-1);
+});
+
+// ── INIT ──
+buildDomainChips();
+buildDomainLegend();
+buildTable();
+</script>
+</body>
+</html>
